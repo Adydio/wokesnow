@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}欢迎！{% endblock %}
+
+{% block content %}
+    <div class="container-fluid d-flex align-items-center no-padding">
+        <div class="col">
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-md-offset-1">
+                    <div class="card">
+                        <span class="clearfix"></span>
+                        <div class="card-header">
+                            <ul class="nav nav-pills nav-justified mb-3" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link mb-sm-3 active h3" id="recommended-tab" data-toggle="tab"
+                                       href="#recommended" role="tab" aria-controls="recommended" aria-selected="true">
+                                        <span class="d-sm-none d-sm-block mt-3 ">实时 <small
+                                                class="text-muted">New!</small></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mb-sm-3 h3" id="hot-tab" data-toggle="tab" href="#hot" role="tab"
+                                       aria-controls="hot" aria-selected="false">
+                                        <span class="d-none d-sm-block mt-3">热榜 <small
+                                                class="text-muted">Hot!</small></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% for message in get_flashed_messages() %}
+                            <div class="form-group">
+                                {% if message == "已发布一条匿名帖！" %}
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <span class="alert-inner--icon"><i class="fas fa-check"></i></span>
+                                        <span class="alert-inner--text"><strong>成功！</strong> {{ message }}</span>
+                                        <button type="button" class="undo" aria-label="Undo">关闭</button>
+                                        <button type="button" class="close" data-dismiss="alert"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <div class="card-body">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="recommended" role="tabpanel"
+                                     aria-labelledby="recommended-tab">
+                                    <p>（注释：这里装载【推荐】内容）</p>
+                                    <ul class="list-group">
+                                        {% for question in questions %}
+                                            <li class="list-group-item">
+                                                <div class="align-items-center">
+                                                    <span class="avatar avatar-sm bg-twitter mr-3"><i
+                                                            class="fab fa-twitter"></i></span>
+                                                    <h>{{ question.author.nickname }}</h>
+                                                </div>
+                                                <div class="list-group-content">
+                                                    <div class="list-group-heading">
+                                                        <a class="h6 text-primary ml-5"
+                                                           href="{{ url_for('qa.question_detail',question_id=question.id) }}">{{ question.title }}</a>
+                                                        <small>发布于 {{ question.create_time }}</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <p></p>
+                                                </div>
+                                                <a>{{ question.content }}</a>
+                                                <ul class="nav justify-content-end">
+                                                    <li class="nav-item">
+                                                        <div class="btn-group btn-action-label" role="group"
+                                                             aria-label="Like">
+                                                            <a href="{{ url_for('qa.question_detail',question_id=question.id) }}"
+                                                               class="btn btn-sm btn-outline-primary btn-label">{{ question.answers|length }}</a>
+                                                            <button href="{{ url_for('qa.question_detail',question_id=question.id) }}"
+                                                                    type="button"
+                                                                    class="btn btn-sm btn-primary btn-action-label">
+                                                                <i class="fas fa-code-branch"></i>
+                                                                <span>跟帖</span>
+                                                            </button>
+                                                        </div>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="hot" role="tabpanel" aria-labelledby="hot-tab">
+                                    <p>（注释：这里装载【热榜】内容，【热榜】即一周内回复数从多到少排列）</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <p>翻页实现了吗？</p>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="#"><i
+                                            class="fas fa-angle-left"></i></a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                    <li class="page-item"><a class="page-link" href="#"><i
+                                            class="fas fa-angle-right"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card sticky-top">
+                        <div class="card-header">
+                            <div class="row justify-content-center">
+                                <div class="col col-auto">
+                                    <button type="button" class="btn btn-primary btn-animated btn-animated-x">
+                                        <span class="btn-inner--visible" href="#top">回到顶部</span>
+                                        <span class="btn-inner--hidden"><i class="fas fa-arrow-up"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col col-auto" href={{ url_for('blog.blog_index') }}>
+                                    <span type="button" class="btn btn-primary btn-animated btn-animated-x"
+                                          href={{ url_for('blog.blog_index') }}>
+                                        <span class="btn-inner--visible">博客专区</span>
+                                        <span class="btn-inner--hidden" href={{ url_for('blog.blog_index') }}><i
+                                                class="fas fa-arrow-right"></i></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row justify-content-center">
+                                <div class="col col-auto">
+                                    <a class="navbar-brand" href={{ url_for('blog.blog_index') }}><strong>USTC</strong> 博客园</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

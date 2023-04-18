@@ -1,0 +1,186 @@
+{% block doc -%}
+    <!DOCTYPE html>
+    <html{% block html_attribs %}{% endblock html_attribs %}>
+    {%- block html %}
+        <head>
+            {%- block head %}
+                <title>{% block title %}{{ title|default }}{% endblock title %}</title>
+                <script src="{{ url_for('static',filename='jquery/jquery.3.6.min.js') }}"></script>
+                <script src="{{ url_for('static',filename='js/register.js') }}"></script>
+                {%- block metas %}
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                {%- endblock metas %}
+
+                {%- block styles %}
+                    <!-- Fonts -->
+                    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800|Roboto:400,500,700"
+                          rel="stylesheet">
+                    <!-- Boomerang CSS (including Bootstrap) -->
+                    <link type="text/css" href="../static/css/theme.css" rel="stylesheet">
+                    <link type="text/css" href="../static/css/demo.css" rel="stylesheet">
+                    <!-- 我的样式表 -->
+                    <link href="../static/css/settings.css" rel="stylesheet">
+                {%- endblock styles %}
+
+            {%- endblock head %}
+        </head>
+        <body{% block body_attribs %}{% endblock body_attribs %}>
+        {% block body -%}
+
+            {% block navbar %}
+                <nav class="navbar navbar-expand-lg navbar-transparent navbar-dark bg-dark py-4 ">
+                    <div class="container">
+                        <a class="navbar-brand" href="../"><strong>中国科大</strong> 匿名讨论板 Welcome!</a>
+                        <button class="navbar-toggler" type="button" data-action="offcanvas-open"
+                                data-target="#navbar_main" aria-controls="navbar_main" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse offcanvas-collapse" id="navbar_main">
+                            <ul class="navbar-nav ml-auto align-items-lg-center">
+                                <h6 class="dropdown-header font-weight-600 d-lg-none px-0">菜单</h6>
+                                <li class="nav-item ">
+                                    <a href='{{ url_for("qa.index") }}'
+                                       class="btn btn-sm bg-white d-none d-lg-inline-flex">首页</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a href='{{ url_for("qa.public_question") }}'
+                                       class="btn btn-sm bg-white d-none d-lg-inline-flex">发布问题</a>
+                                </li>
+                                {% if g.user %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbar_main_dropdown_1"
+                                           role="button" data-toggle="dropdown" aria-haspopup="true"
+                                           aria-expanded="false">{{ user.username }}</a>
+                                        <div class="dropdown-menu" aria-labelledby="navbar_1_dropdown_1">
+                                            <a class="dropdown-item" href={{ url_for("user.login") }}>个人中心</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href={{ url_for('user.logout') }}>退出登录</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item ">
+                                        <a href='{{ url_for("user.login") }}'
+                                           class="btn btn-sm bg-white d-none d-lg-inline-flex">登录</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href='{{ url_for("user.register") }}'
+                                           class="btn btn-sm bg-white d-none d-lg-inline-flex">注册</a>
+                                    </li>
+                                {% endif %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href={{ url_for('docs') }}>文档</a>
+                                </li>
+                                <div class="dropdown-divider d-lg-none my-4"></div>
+                                <h6 class="dropdown-header font-weight-600 d-lg-none px-0">社交媒体</h6>
+                                <li class="nav-item">
+                                    <a class="nav-link nav-link-icon" href="https://github.com/ustcflask/dyk_trial"
+                                       target="_blank">
+                                        <i class="fab fa-github"></i>
+                                        <span class="ml-2 d-lg-none">Github</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            {%- endblock navbar %}
+
+            <main class="main">
+                <section class="py-xl ">
+                    <span class="mask bg-gradient-primary alpha-7"></span>
+                    {% block show %}
+
+                    {% endblock show %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                {% block col1 %}
+
+                                {% endblock col1 %}
+                            </div>
+                            <div class="col-lg-8">
+                                {% block col %}
+
+                                {% endblock col %}
+                                {% block col2 %}
+
+                                {% endblock col2 %}
+                            </div>
+                            <div class="col-lg-2">
+                                {% block col3 %}
+
+                                {% endblock col3 %}
+                            </div>
+                        </div>
+                    </div>
+                    {% block content_ %}
+
+                    {% endblock content_ %}
+                    {% block content__ %}
+
+                    {% endblock content__ %}
+                    {% block content %}
+
+                    {% endblock content %}
+                </section>
+            </main>
+
+            {% block footer -%}
+                <footer class="pt-5 pb-3 footer  footer-dark bg-tertiary">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                <div class="pr-lg-5">
+                                    <h1 class="heading h6 text-uppercase font-weight-700 mb-3"><strong>中国科大</strong>
+                                        匿名讨论板</h1>
+                                    <p> 欢迎！</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md">
+                                <h5 class="heading h6 text-uppercase font-weight-700 mb-3">关于我们</h5>
+                                <ul class="list-unstyled text-small">
+                                    <li><a class="text-muted" href={{ url_for('aboutus') }}>成员介绍</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex align-items-center">
+          <span class="">
+            &copy; 2022 <a href="https://webpixels.io/" class="footer-link" target="_blank">ustcflask</a>. All rights reserved.
+          </span>
+                            <ul class="nav ml-lg-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="https://github.com/ustcflask/dyk_trial" target="_blank"><i
+                                            class="fab fa-github"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </footer>
+            {%- endblock footer %}
+
+            {% block scripts %}
+                <!-- Core -->
+                <script src="../static/vendor/jquery/jquery.min.js"></script>
+                <script src="../static/vendor/popper/popper.min.js"></script>
+                <script src="../static/js/bootstrap/bootstrap.min.js"></script>
+                <!-- FontAwesome 5 -->
+                <script src="../static/vendor/fontawesome/js/fontawesome-all.min.js" defer></script>
+                <!-- Page plugins -->
+                <script src="../static/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+                <script src="../static/vendor/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+                <script src="../static/vendor/input-mask/input-mask.min.js"></script>
+                <script src="../static/vendor/nouislider/js/nouislider.min.js"></script>
+                <script src="../static/vendor/textarea-autosize/textarea-autosize.min.js"></script>
+                <!-- Theme JS -->
+                <script src="../static/js/theme.js"></script>
+            {%- endblock scripts %}
+
+        {%- endblock body %}
+        </body>
+    {%- endblock html %}
+    </html>
+{% endblock doc -%}

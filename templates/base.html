@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+          content="Probably the most complete UI kit out there. Multiple functionalities and controls added,  extended color palette and beautiful typography, designed as its own extended version of Bootstrap at  the highest level of quality.                             ">
+    <meta name="author" content="ustcflask">
+    <title>{% block title %}{{ title|default }}{% endblock title %}</title>
+    <!-- Fonts -->
+    <link href="../static/css/all.css" rel="stylesheet">
+    <link href="../static/css/brands.css" rel="stylesheet">
+    <link href="../static/css/solid.css" rel="stylesheet">
+    <!-- Plugins -->
+    <link rel="stylesheet" href="../static/vendor/animate/animate.min.css" type="text/css">
+    <!-- Theme CSS -->
+    <link type="text/css" href="../static/css/theme.css" rel="stylesheet">
+    <!-- Demo CSS - No need to use these in your project -->
+    <link rel="stylesheet" href="../static/vendor/jquery-scrollbar/css/jquery-scrollbar.css">
+    <link type="text/css" href="../static/vendor/highlight/css/highlight.min.css" rel="stylesheet">
+    <link type="text/css" href="../static/css/demo.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+<main class="main">
+    <aside class="sidebar" style="background: #F5F6F7" id="nav_docs">
+        <div class="sidebar-brand">
+            <h1 class="font-weight-400">
+                <a href="/">
+                    <span class="font-weight-900">USTC</span> 匿名讨论板</a>
+            </h1>
+        </div>
+        <div class="scrollbar-inner scroll-content scroll-scrolly_visible"
+             style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 422.4px;">
+            <ul class="navigation pr-3">
+                <li class="navigation-title"><strong>USTC</strong> 匿名讨论板</li>
+                <li class="navigation-item">
+                    <a href="/" class="navigation-link">实时 Now!</a>
+                </li>
+                <li class="navigation-item">
+                    <a href="/hot" class="navigation-link">热榜 Hot!</a>
+                </li>
+                <li class="navigation-title">
+                    <strong>USTC</strong> 博客园
+                </li>
+                <li class="navigation-item">
+                    <a href="{{ url_for('blog.blog_index') }}" class="navigation-link">实时 Now!</a>
+                </li>
+                <li class="navigation-item">
+                    <a href="{{ url_for('blog.hot') }}" class="navigation-link">热榜 Hot!</a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <section class="content">
+        <div class="header">
+            <div class="navigation-trigger d-xl-none" data-action="aside-open" data-target=".sidebar">
+                <div class="navigation-trigger-inner">
+                    <i class="navigation-trigger-line"></i>
+                    <i class="navigation-trigger-line"></i>
+                    <i class="navigation-trigger-line"></i>
+                </div>
+            </div>
+            <div class="header-brand d-xl-none">
+                <h1><a href="/">USTC 匿名讨论板</a></h1>
+            </div>
+            <div class="header-nav ml-auto">
+                <ul class="nav align-items-center">
+                    <li class="nav-item ml-2">
+                        <a href='{{ url_for("qa.index") }}'
+                           class="btn btn-sm btn-primary">匿名讨论板</a>
+                    </li>
+                    <li class="nav-item ml-2">
+                        <a href='{{ url_for("blog.blog_index") }}'
+                           class="btn btn-sm btn-primary">科大博客园</a>
+                    </li>
+                    <li class="nav-item ml-2">
+                        <a href='{{ url_for("qa.publish_question") }}'
+                           class="btn btn-sm btn-primary">发布帖子</a>
+                    </li>
+                    <li class="nav-item ml-2">
+                        <a href="{{ url_for('user.writeblog') }}"
+                           class="btn btn-sm btn-primary">写博客</a>
+                    </li>
+                    {% if g.user %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbar_main_dropdown_1"
+                               role="button" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">{{ g.user.username }}</a>
+                            <div class="dropdown-menu" aria-labelledby="navbar_1_dropdown_1">
+                                <a class="dropdown-item" href={{ url_for("user.myBlog",hot_questions=hot_questions) }}>个人中心</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item ml-2">
+                            <a class="nav-link" href={{ url_for('user.logout') }}>退出登录</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item ml-2">
+                            <a href='{{ url_for("user.login") }}'
+                               class="btn btn-sm bg-light">登录</a>
+                        </li>
+                        <li class="nav-item ml-2">
+                            <a href='{{ url_for("user.register") }}'
+                               class="btn btn-sm bg-light">注册</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item ml-2">
+                        <a class="nav-link" href="https://gitee.com/ustcflask/ustcflask/blob/master/README.md">文档</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content-inner content-docs">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        {% block content %}
+
+                        {% endblock content %}
+                        {% block content_ %}
+
+                        {% endblock content_ %}
+                        {% block content__ %}
+
+                        {% endblock content__ %}
+                    </div>
+                    <div class="col-lg-3 d-none d-lg-inline-block">
+                        <div class="sticky-top data-stick-in-parent="true"">
+                            <div class="text-center" style="padding-bottom: 10px; padding-top: 16px">
+                                <strong>大家都在看：</strong>
+                            </div>
+                            <ul class="section-nav">
+                                {% for question in hot_questions %}
+                                <li class="toc-entry toc-h3"><a href="/question/{{ question.id }}">{{ question.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            <div class="text-center" style="padding-top: 20px">
+                                <button type="button" class="btn btn-outline-primary btn-animated btn-animated-x">
+                                    <a class="btn-inner--visible" href="#top">回到顶部</a>
+                                    <a class="btn-inner--hidden text-white" href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% block footer -%}
+            <footer class="pt-5 pb-3 footer" style="background: #F5F6F7">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-4">
+                            <div class="pr-lg-5">
+                                <h1 class="heading h6 text-uppercase font-weight-700 mb-3"><strong>USTC</strong>
+                                    匿名讨论板</h1>
+                                <p> 欢迎！</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md">
+                            <h5 class="heading h6 text-uppercase font-weight-700 mb-3">关于我们</h5>
+                            <ul class="list-unstyled text-small">
+                                <li><a class="text-muted" href={{ url_for('aboutus') }}>成员简介</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex align-items-center">
+          <span class="">
+            &copy; 2022 <a href="https://gitee.com/ustcflask/ustcflask" class="footer-link" target="_blank">ustcflask</a>.All rights reserved.
+          </span>
+                        <ul class="nav ml-lg-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://gitee.com/ustcflask/ustcflask" target="_blank"><i
+                                        class="fab fa-github"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        {%- endblock footer %}
+    </section>
+</main>
+<!-- Core -->
+<script src="../static/vendor/jquery/jquery.min.js"></script>
+<script src="../static/vendor/popper/popper.min.js"></script>
+<script src="../static/js/bootstrap/bootstrap.min.js"></script>
+<!-- FontAwesome 6 -->
+<script src="../static/vendor/fontawesome/js/fontawesome-all.min.js" defer></script>
+<!-- Scripts used only for this demo only - Remove these in your project -->
+<script src="../static/vendor/jquery-scrollbar/js/jquery-scrollbar.min.js"></script>
+<script src="../static/vendor/jquery-scrollLock/jquery-scrollLock.min.js"></script>
+<script src="../static/vendor/sticky-kit/sticky-kit.min.js"></script>
+<script src="../static/vendor/highlight/js/highlight.min.js"></script>
+<script src="../static/vendor/clipboard-js/clipboard.min.js"></script>
+<script src="../static/vendor/holderjs/holder.min.js"></script>
+<script src="../static/js/demo.js"></script>
+<!-- Theme JS -->
+<script src="../static/js/theme.js"></script>
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/layui/layui.js"></script>
+    <script src="{{ url_for('static',filename='jquery/jquery.3.6.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/register.js') }}"></script>
+    <script>
+        function openpdf(){
+            window.open('docs.pdf');
+        }
+    </script>
+{% block scripts %}
+
+{% endblock %}
+</body>
+</html>

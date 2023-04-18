@@ -1,0 +1,217 @@
+{% extends 'blogbase.html' %}
+
+{% block title %}
+    {{ user.username }}的个人主页
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/blogAll.css">
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron bg-secondary">
+        <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="Tab1" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 active" id="information-tab" data-toggle="tab" href="#information" role="tab" aria-controls="information" aria-selected="true">个人信息</a>
+            </li>
+             <li class="nav-item">
+                 <a class="nav-link mb-sm-3" id="modify-tab" data-toggle="tab" href="#modify" role="tab" aria-controls="modify" aria-selected="false">修改个人信息</a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="Tab1Content">
+            <div class="tab-pane fade show active" id="information" role="tabpanel" aria-labelledby="information-tab">
+                <div class="row">
+                    <div class="col-3 text-center">
+                        <img class="rounded img-thumbnail"  alt="头像加载失败" src="{{ user.gravatar }}" height="125" width="125">
+                    </div>
+                    <div class="col-9">
+                        <h1 class="display-3"><strong>{{ user.username }}</strong></h1>
+                        <hr>
+                        <div class="container" style="padding-bottom: 10px">
+                            <p class="h5">
+                                {{ user.idiom }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group btn-action-label float-left" role="group" aria-label="#">
+                    <button type="button" class="btn btn-sm btn-outline-primary btn-action">
+                        <span>加入时间</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <p class="btn btn-sm btn-outline-danger btn-label">{{ user.join_time }}</p>
+                </div>
+                <div class="btn-group btn-action-label float-right" role="group" aria-label="#">
+                    <button type="button" class="btn btn-sm btn-outline-primary btn-action">
+                        <span>邮箱</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <p class="btn btn-sm btn-outline-danger btn-label">{{ user.email }}</p>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="modify" role="tabpanel" aria-labelledby="modify-tab">
+                <div class="row">
+                    <div class="col-3 text-center">
+                        <img class="rounded img-thumbnail"  alt="头像加载失败" src="{{ user.gravatar }}" height="125" width="125">
+                    <form action="{{ url_for('user.upload') }}" enctype='multipart/form-data' method='POST'>
+                        <span>点击修改头像（请上传分辨率为200*200的图片）</span>
+                        <input type="file" name="file" style="margin-top:10px;"/>
+                        <input type="reset" value="重新选择" class="btn btn-sm btn-primary" style="margin-top: 30px"/>
+                        <input type="submit" value="上传" class="btn btn-sm btn-primary" style="margin-top: 30px"/>
+                    </form>
+                    </div>
+                    <div class="col-9">
+                        <h1 class="display-3"><strong>{{ user.username }}</strong></h1>
+                        <hr>
+                        <div class="container" style="padding-bottom: 20px">
+                            <p class="h5">
+                                {{ user.idiom }}
+                            </p>
+                            <form action="{{ url_for('user.change_idiom') }}" method='POST'>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">你的新签名：</span>
+                                    </div>
+                                    <input type='text' name=idiom class="form-control" placeholder="请输入新签名"/>
+                                    <div class="input-group-append">
+                                        <button type="submit" value="修改签名" class="btn btn-outline-primary">确认</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+        <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="myTab" role="tablist">
+
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="false">我的发帖</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3" id="blogs-tab" data-toggle="tab" href="#blogs" role="tab" aria-controls="blogs" aria-selected="false">我的博客</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3" id="follows-tab" data-toggle="tab" href="#follows" role="tab" aria-controls="follows" aria-selected="true">我的关注</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3" id="followers-tab" data-toggle="tab" href="#followers" role="tab" aria-controls="followers" aria-selected="true">关注我的</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3" id="collections-tab" data-toggle="tab" href="#collections" role="tab" aria-controls="collections" aria-selected="true">我的收藏</a>
+            </li>
+        </ul>
+
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                <div class="card">
+                    <div class="list-group">
+                        <ul class="question-ul">
+                            {% for question in questionList %}
+                                <li class="list-group-item">
+                                    <a class="h6 text-primary ml-0" href="/question/{{ question.id }}">{{ question.title }}</a>
+                                    <p>
+                                        发布人：{{ question.author.username }}
+                                        &nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{ question.create_time }}
+                                        <span class="operation">
+                                    <!--<a href="/blog/update/{{ question.id }}">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                                </span>
+                                    </p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="blogs" role="tabpanel" aria-labelledby="blogs-tab">
+                <div class="card">
+                    <div class="list-group">
+                        <ul class="question-ul">
+                            {% for blog in blogList %}
+                                <li class="list-group-item">
+                                    <a class="h6 text-primary ml-0" href="/blog/{{ blog.id }}">{{ blog.title }}</a>
+                                    <p>
+                                        发布人：{{ blog.author.username }} &nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{ blog.create_time }}
+                                        收到的赞：{{ blog.likes }} 收藏量：{{ blog.collects }}
+                                        <span class="operation">
+                                    <!--<a href="/blog/update/{{ blog.id }}">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                                    <!--<a href="javascript:;" onclick="del('/blog/delete/{{ blog.id }}', this)">删除</a>-->
+                                </span>
+                                    </p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade " id="follows" role="tabpanel" aria-labelledby="follows-tab">
+                <div class="card">
+                    <div class="list-group">
+                        <ul class="question-ul">
+                            {% for follow in followedList %}
+                                <li class="list-group-item">
+                                    <a class="h6 text-primary ml-0" href={{ url_for('author_page',author_id=follow.id) }}>{{ follow.username }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade " id="followers" role="tabpanel" aria-labelledby="followers-tab">
+                <div class="card">
+                    <div class="list-group">
+                        <ul class="question-ul">
+                            {% for follow in followerList %}
+                                <li class="list-group-item">
+                                    <a class="h6 text-primary ml-0" href={{ url_for('author_page',author_id=follow.id) }}>{{ follow.username }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade " id="collections" role="tabpanel" aria-labelledby="collections-tab">
+                <div class="card">
+                    <div class="list-group">
+                        <ul class="question-ul">
+                            {% for blog in collected_blog %}
+                                <li class="list-group-item">
+                                    <a class="h6 text-primary ml-0" href="/blog/{{ blog.id }}">{{ blog.title }}</a>
+                                    <p>
+                                        发布人：{{ blog.author.username }} &nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{ blog.create_time }}
+                                        收到的赞：{{ blog.likes }} 收藏量：{{ blog.collects }}
+                                    </p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script type="text/javascript">
+        function del(url, that) {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.confirm('您确定要删除吗？', {
+                    btn: ['取消', '确定']
+                }, function (index) {
+                    layer.close(index);
+                }, function () {
+                    $.get(url, function (data) {
+                        if (data.state) {
+                            $(that).parent().parent().parent().remove();
+                            layer.msg(data.msg, {icon: 1});
+                        }
+                    })
+                });
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}欢迎！{% endblock %}
+
+{% block content %}
+        <div class="container d-flex align-items-center no-padding">
+            <div class="col">
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <span class="avatar avatar-lg bg-purple">您</span>
+                                        <h2 class="avatar-content">David Wally</h2>
+                                    </div>
+                                    <div class="col text-right text-xs-right">
+                                        <ul class="list-inline mb-0">
+                                            <li class="list-inline-item pr-2">
+                                                2 hrs ago
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="clearfix"></span>
+                                <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link mb-sm-3 active" id="recommended-tab" data-toggle="tab" href="#recommended" role="tab" aria-controls="recommended" aria-selected="true">推荐</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link mb-sm-3" id="hot-tab" data-toggle="tab" href="#hot" role="tab" aria-controls="hot" aria-selected="false">热榜</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="recommended" role="tabpanel" aria-labelledby="recommended-tab">
+                                        <p>这里装载【推荐】内容</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="hot" role="tabpanel" aria-labelledby="hot-tab">
+                                        <p>这里装载【热榜】内容</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group">
+                                    <li class="list-group-item">
+                                        <a class=" h2 heading heading-5 bold" href="#">帖子的标题</a>
+                                        <h6 class="heading heading-sm strong-400 text-muted mb-4">
+                                            发布于 2小时 前
+                                        </h6>
+                                        <p class="h5">帖子的内容帖 子的内容帖子的内容帖子的内容帖子的内容帖子的内容帖子的内容
+                                            帖子的内容帖子的内容帖 子的内容帖子的内容帖子的内容...</p>
+                                        <ul class="nav justify-content-end">
+                                            <li class="nav-item">
+                                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                                    <a href="#">回复</a>
+                                                </button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                                    <a href="#">收藏</a>
+                                                </button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                                    <a href="#">点赞</a>
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p>第二项</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p>第三项</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p>第四项</p>
+                                    </li>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-left"></i></a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                        <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card sticky-top">
+                            <div class="card-header">
+                                <p>卡片头</p>
+                            </div>
+                            <div class="card-body">
+                                <p>忘记要装什么了</p>
+                                <p>忘记要装什么了</p>
+                                <p>忘记要装什么了</p>
+                                <p>忘记要装什么了</p>
+                                <p>忘记要装什么了</p>
+                                <p>忘记要装什么了</p>
+                            </div>
+                            <div class="card-footer">
+                                <p>卡片尾</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+{% endblock %}

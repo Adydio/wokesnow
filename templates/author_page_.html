@@ -1,0 +1,146 @@
+{% extends 'blogbase.html' %}
+
+{% block title %}
+    {{ user.username }}的主页
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/blogAll.css">
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+<script src="/static/vendor/popper/popper.min.js"></script>
+<script src="/static/js/bootstrap/bootstrap.min.js"></script>
+<!-- FontAwesome 5 -->
+<script src="/static/vendor/fontawesome/js/fontawesome-all.min.js" defer></script>
+<!-- Scripts used only for this demo only - Remove these in your project -->
+<script src="/static/vendor/jquery-scrollbar/js/jquery-scrollbar.min.js"></script>
+<script src="/static/vendor/jquery-scrollLock/jquery-scrollLock.min.js"></script>
+<script src="/static/vendor/sticky-kit/sticky-kit.min.js"></script>
+<script src="/static/vendor/highlight/js/highlight.min.js"></script>
+<script src="/static/vendor/clipboard-js/clipboard.min.js"></script>
+<script src="/static/vendor/holderjs/holder.min.js"></script>
+<script src="/static/js/demo.js"></script>
+<!-- Theme JS -->
+<script src="/static/js/theme.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="col-md-4">
+            <img src="{{ user.gravatar }}" height="200">
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-sm btn-outline-primary btn-icon">
+                <span class="btn-inner--icon"><i class="fas fa-user"></i></span>
+                <span class="btn-inner--text">{{ user.username }}</span>
+            </button>
+        </div>
+                <div class="btn-group btn-action-label mt-3" role="group" aria-label="Like">
+                <span type="button" class="btn btn-sm btn-secondary btn-action">
+                    <i class="fas fa-bell"></i>
+                    <span>关注</span>
+                </span>
+                <a id="0" href="#" class="btn btn-sm btn-outline-secondary btn-label">未关注</a>
+            </div>
+        <div class="btn-group btn-action-label mt-3" role="group" aria-label="Like">
+            <button type="button" class="btn btn-sm btn-secondary">
+                <i class="fas fa-arrow-right"></i>
+                <span>加入时间</span>
+            </button>
+            <a href="#" class="btn btn-sm btn-outline-danger btn-label">{{ user.join_time }}</a>
+        </div>
+        <div class="btn-group btn-action-label mt-3" role="group" aria-label="Like">
+            <button type="button" class="btn btn-sm btn-secondary">
+                <i class="fas fa-arrow-right"></i>
+                <span>邮箱</span>
+            </button>
+            <a href="#" class="btn btn-sm btn-outline-danger btn-label">{{ user.email }}</a>
+        </div>
+        <div class="mt-2"><a class="h3"><strong>个性签名：</strong></a></div>
+        <span class="card mt-2 h4" style="background-color: #00F7DE"> {{ user.idiom }}</span>
+        <div class="col-md-2 ">
+            <h3>{{ user.username }}的关注：</h3>
+        </div>
+        <div class="col-md-4 ">
+            <h3>{{ user.username }}最近的提问：</h3>
+        </div>
+        <div class="card">
+            <div class="list-group">
+                <ul class="question-ul">
+                    {% for question in questionList %}
+                        <li class="list-group-item">
+                            <a class="h6 text-primary ml-0" href="/question/{{ question.id }}">{{ question.title }}</a>
+                            <p>
+                                发布人：{{ question.author.username }}
+                                &nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{ question.create_time }}
+                                <span class="operation">
+                        </span>
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2 ">
+            <h3>{{ user.username }}的收藏：</h3>
+        </div>
+        <div class="card">
+            <div class="list-group">
+                <ul class="question-ul">
+                    {% for blog in collected_blog %}
+                        <li class="list-group-item">
+                            <a class="h6 text-primary ml-0" href="/blog/{{ blog.id }}">{{ blog.title }}</a>
+                            <p>
+                                发布人：{{ blog.author.username }} &nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{ blog.create_time }}
+                                收到的赞：{{ blog.likes }} 收藏量：{{ blog.collects }}
+                                <span class="operation">
+                        </span>
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2 ">
+            <h3>{{ user.username }}写的博客：</h3>
+        </div>
+        <div class="card">
+            <div class="list-group">
+                <ul class="question-ul">
+                    {% for blog in blogList %}
+                        <li class="list-group-item">
+                            <a class="h6 text-primary ml-0" href="/blog/{{ blog.id }}">{{ blog.title }}</a>
+                            <p>
+                                发布人：{{ blog.author.username }} &nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{ blog.create_time }}
+                                收到的赞：{{ blog.likes }} 收藏量：{{ blog.collects }}
+                                <span class="operation">
+                        </span>
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{{  super() }}
+    <script>
+        $(function () {
+            $('.btn-action').click(function () {
+                let $this = $(this);
+                let tag = $this.next('a').attr('id');
+                $.get('{{ url_for('user.follow') }}', {bid:{{user.id}}, id: tag}, function (data) {
+                    $this.next('a').text(data.num);
+                });
+                if (tag == 1) {
+                    $this.css({'color': 'black'})
+                    $this.next('a').attr('id', "0")
+                } else {
+                    $this.css({'color': 'red'})
+                    $this.next('a').attr('id', "1")
+                }
+            });
+        })
+    </script>
+{% endblock %}

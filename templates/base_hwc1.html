@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block html_attribs %} lang="zh-CN" {% endblock %}
+
+{% block title %}base{% endblock %}
+
+{% block metas %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="我们的作品">
+    <meta name="author" content="ustcflask">
+{% endblock %}
+
+{% block styles %}
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800|Roboto:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href={{ url_for('static',filename='css/theme.css') }}>
+{% endblock %}
+
+{% block body %}
+    {% block navbar %}
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-dark bg-dark py-4">
+            <div class="container">
+                <a class="navbar-brand" href="../"><strong>中国科大</strong> 匿名讨论板 Welcome!</a>
+                <button class="navbar-toggler" type="button" data-action="offcanvas-open" data-target="#navbar_main"
+                        aria-controls="navbar_main" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse offcanvas-collapse" id="navbar_main">
+                    <ul class="navbar-nav ml-auto align-items-lg-center">
+                        <h6 class="dropdown-header font-weight-600 d-lg-none px-0">菜单</h6>
+                        <li class="nav-item ">
+                            <a href={{ url_for("qa.public_question") }} target="_blank"
+                               class="nav-link d-lg-none">发布问题</a>
+                            <a href={{ url_for("qa.public_question") }} target="_blank"
+                               class="btn btn-sm bg-white d-none d-lg-inline-flex">发布问题</a>
+                        </li>
+                        {% if g.user %}
+                            {#                            <li class="nav-item">#}
+                            {#                                <a class="nav-link" href={{ url_for('qa.public_question') }}>发布问答</a>#}
+                            {#                            </li>#}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbar_main_dropdown_1" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">{{ user.username }}</a>
+                                <div class="dropdown-menu" aria-labelledby="navbar_1_dropdown_1">
+                                    <a class="dropdown-item" href={{ url_for("user.login") }}>个人中心</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href={{ url_for('user.logout') }}>退出登录</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item ">
+                                <a href={{ url_for("user.login") }} target="_blank" class="nav-link d-lg-none">登录</a>
+                                <a href={{ url_for("user.login") }} target="_blank"
+                                   class="btn btn-sm bg-white d-none d-lg-inline-flex">登录</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href={{ url_for("user.register") }} target="_blank" class="nav-link d-lg-none">注册</a>
+                                <a href={{ url_for("user.register") }} target="_blank"
+                                   class="btn btn-sm bg-white d-none d-lg-inline-flex">注册</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href={{ url_for('docs') }}>文档</a>
+                        </li>
+                        <div class="dropdown-divider d-lg-none my-4"></div>
+                        <h6 class="dropdown-header font-weight-600 d-lg-none px-0">社交媒体</h6>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-icon" href="https://github.com/ustcflask/dyk_trial"
+                               target="_blank"><i class="fab fa-github"></i><span
+                                    class="ml-2 d-lg-none">Github</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    {% endblock %}
+
+    {% block content %}
+
+        {% block page_content %}
+            {#<main class="main">#}
+            {#    <section class="spotlight bg-cover bg-size--cover" style="background-image: url('../static/images/backgrounds/img-1.jpg')">#}
+            {#        <span class="mask bg-primary alpha-7"></span>#}
+            {#        <div class="spotlight-holder py-sm pt-lg-lg">#}
+            {#            <div class="container d-flex align-items-center">#}
+            {#                <div class="row cols-xs-space cols-sm-space cols-md-space align-items-center justify-content-around">#}
+            {#                    <div class="col-lg-5 text-center">#}
+            {#                        <h2 class="heading h1 text-white strong-400">#}
+            {#                            你是一个Python工程师！#}
+            {#                        </h2>#}
+            {#                        <p class="lead text-white mt-4">#}
+            {#                            科大留言板，你值得拥有！#}
+            {#                        </p>#}
+            {#                        <a href="#" target="_blank" class="btn bg-white mt-4">了解更多</a>#}
+            {#                    </div>#}
+            {#                    <div class="col-lg-5">#}
+            {#                        <div class="position-relative">#}
+            {#                            <img src="../static/images/slider/iphone.png" class="img-center img-fluid rounded">#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
+            {#        </div>#}
+            {#    </section>#}
+            {#</main>#}
+        {% endblock %}
+
+    {% endblock %}
+
+    {% block footer %}
+        <footer class="pt-5 pb-3 footer  footer-dark bg-tertiary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div class="pr-lg-5">
+                            <h1 class="heading h6 text-uppercase font-weight-700 mb-3"><strong>中国科大</strong> 匿名讨论板</h1>
+                            <p> 欢迎！</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md">
+                        <h5 class="heading h6 text-uppercase font-weight-700 mb-3">关于我们</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a class="text-muted" href="#">Team</a></li>
+                            <li><a class="text-muted" href="#">Locations</a></li>
+                            <li><a class="text-muted" href="#">Privacy</a></li>
+                            <li><a class="text-muted" href="#">Terms</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex align-items-center">
+            <span class="">
+                &copy; 2022 <a href="https://webpixels.io/" class="footer-link" target="_blank">ustcflask</a>. All rights reserved.
+            </span>
+                    <ul class="nav ml-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/ustcflask/dyk_trial" target="_blank"><i
+                                    class="fab fa-github"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    {% endblock %}
+
+    {% block scripts %}
+        {{ super() }}
+        <!-- Core -->
+        <script src="../static/vendor/jquery/jquery.min.js"></script>
+        <script src="../static/vendor/popper/popper.min.js"></script>
+        <script src="../static/js/bootstrap/bootstrap.min.js"></script>
+        <!-- FontAwesome 5 -->
+        <script src="../static/vendor/fontawesome/js/fontawesome-all.min.js" defer></script>
+        <!-- Page plugins -->
+        <script src="../static/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+        <script src="../static/vendor/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+        <script src="../static/vendor/input-mask/input-mask.min.js"></script>
+        <script src="../static/vendor/nouislider/js/nouislider.min.js"></script>
+        <script src="../static/vendor/textarea-autosize/textarea-autosize.min.js"></script>
+        <!-- Theme JS -->
+        <script src="../static/js/theme.js"></script>
+    {% endblock %}
+
+{% endblock %}

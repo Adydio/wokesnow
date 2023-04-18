@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}发布问答{% endblock %}
+
+{% block content %}
+    <div class="row" style="margin-top: 20px;">
+        <div class="col"></div>
+        <div class="col-8">
+            {% for message in get_flashed_messages() %}
+                <div class="form-group">
+                    {% if message=="标题或内容格式错误！" %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                <span class="alert-inner--icon"><i
+                                                        class="fas fa-exclamation"></i></span>
+                            <span class="alert-inner--text"><strong>错误！</strong>{{ message }}</span>
+                            <button type="button" class="undo" aria-label="Undo"></button>
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <form action="{{ url_for('qa.public_question') }}" method="post">
+                <div class="form-group">
+                    <input type="text" name="title" class="form-control" placeholder="请输入标题">
+                </div>
+                <div class="form-group">
+                    <textarea name="content" class="form-control" rows="10" placeholder="请输入问题描述(3~1200个字符)"></textarea>
+                </div>
+                <div class="form-group" style="text-align: right;">
+                    <button type="submit" class="btn btn-secondary btn-icon-label">
+                        <span class="btn-inner--icon"><i class="fas fa-check"></i></span>
+                        <span class= "btn-inner--text">发布</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+{% endblock %}

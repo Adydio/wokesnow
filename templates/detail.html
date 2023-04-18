@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}{{ question.title }}{% endblock %}
+
+
+{% block content_ %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/detail.css') }}">
+{% endblock %}
+
+
+{% block content__ %}
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-12" style="background-color: #fff;padding: 20px;">
+            <h3 class="page-title"><strong>{{ question.title }}</strong></h3>
+            <p class="question-info">
+                <span>发布者：[匿名]{{ question.author.nickname }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>发布时间：{{ question.create_time }}</span>
+            </p>
+            <hr>
+            <p><strong>帖子描述：</strong></p>
+            <p class="question-content">{{ question.content }}</p>
+            <hr>
+
+            <h4 class="comment-group-title">评论（{{ question.answers|length }}）：</h4>
+            <form action="{{ url_for('qa.answer',question_id=question.id) }}" method="post">
+                <div class="form-group">
+                    <textarea type="text" placeholder="发表一条友善的答复吧~" name="content" class="form-control"></textarea>
+                </div>
+                {% for message in get_flashed_messages() %}
+                    <div class="form-group">
+                        {% if message == "注册失败，请重试。注意格式要符合要求哦，并且确保邮箱用户名未被注册过。" %}
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                <span class="alert-inner--icon"><i
+                                                        class="fas fa-exclamation"></i></span>
+                                <span class="alert-inner--text"><strong>错误！</strong>{{ message }}</span>
+                                <button type="button" class="undo" aria-label="Undo">关闭</button>
+                                <button type="button" class="close" data-dismiss="alert"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endif %}
+                        {% if message == "回复成功！" %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <span class="alert-inner--icon"><i class="fas fa-check"></i></span>
+                                <span class="alert-inner--text"><strong>Success!</strong>{{ message }}</span>
+                                <button type="button" class="undo" aria-label="Undo">关闭</button>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <div class="form-group" style="text-align: right;">
+                    <button class="btn btn-primary">评论</button>
+                </div>
+            </form>
+            <ul class="comment-group">
+                {% for answer in question.answers %}
+                    <li>
+                        <div class="user-info">
+                            <span class="avatar avatar-sm mr-2" style="background-color: #{{ avatar_2_list[answer.author.anonymous_avatar_2] }}">
+                                <i class="fa-solid fa-{{ avatar_1_list[answer.author.anonymous_avatar_1] }}" style="font-size: 24px; color: #{{ avatar_3_list[answer.author.anonymous_avatar_3] }}"></i>
+                            </span>
+                            <span class="username">[匿名]{{ answer.author.nickname }}</span>
+                            {% if answer.reply_id == 0 %}
+                                <button class="btn btn-sm btn-outline-primary text-primary">{{ answer.id }}</button>
+                            {% else %}
+                                <button class="btn btn-sm btn-outline-primary text-primary">
+                                    <p>{{ answer.id }} >> {{ answer.reply_id }}</p>
+                                </button>
+                            {% endif %} 
+                            <span class="create-time"><small>{{ answer.create_time }}</small></span>
+                        </div>
+                        <p class="comment-content mt-2">{{ answer.content }}</p>
+                        <div class="container" style="padding-bottom: 40px">
+                            <a class="btn btn-sm btn-outline-primary float-right" href="/reply/{{ answer.id }}">
+                                <p class="fa-solid fa-reply text-primary">回复</p>
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+{#{% block scripts %}#}
+{#    {{ super() }}#}
+{#    <script>#}
+{#    $(function(){#}
+{#        $('.fa-thumbs-up').click(function(){#}
+{#            let $this = $(this);#}
+{#            $.get('{{ url_for('qa.answer_like') }}',{aid:{{answer_.id}},function(data){#}
+{#                $(this).next('span').text(data.num)#}
+{#            })#}
+{#        });#}
+{#        })#}
+{#    </script>#}
+{#{% endblock %}#}

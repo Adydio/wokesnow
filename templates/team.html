@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE-edge">
+<meta name="viewpoint" content="width=device-width,initial-scale=1.0">
+<title>Our team</title>
+<link rel="stylesheet" href="../static/css/style.css"/>
+<!--fav-icon-------------->
+<link rel="shortcut icon" href="../static/images/fav-icon.png"/>
+<!--using FontAwesome------------------->
+<script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <section id="team">
+        <h1 class="heading">
+            <!--icon---------------->
+            <i class="fas fa-rocket"></i> Team Members
+        </h1>
+    <!--container---------------->
+    <div class="container">
+        <!--box-1----------->
+        <div class="box">
+            <!--top-bar----------------->
+            <div class="top-bar"></div>
+            <!--nav------------->
+            <div class="nav">
+                <!--verify-icon--------->
+                <i class="verify fas fa-check-circle"></i>
+                <!--heart-btn--------------->
+                <input class="heart-btn" type="checkbox" id="heart-btn">
+                <label class="heart" for="heart-btn"></label>
+            </div>
+            <!--img and details---------------->
+            <div class="details">
+                <img src="../static/images/t-1.png" alt="">
+                <strong>Yukun Dong</strong>
+                <p>dyk2021@mail.ustc.edu.cn</p>
+            </div>
+            <!--view-btns------------------>
+            <button id="modalBtn" class="button">Introduction</button>
+    <!-- 弹框部分 -->
+    <div id="simpleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="closeBtn">&times;</span>
+                <h2>Introduction</h2>
+            </div>
+            <div class="modal-body">
+                <p>吃了睡，睡了吃，啥也不会～（小组组长，负责全栈）</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 获取弹窗元素
+        var modal = document.getElementById("simpleModal");
+ 
+        // 获取按钮元素
+        var modalBtn = document.getElementById("modalBtn");
+ 
+        // 获取关闭弹窗按钮元素
+        var closeBtn = document.getElementsByClassName("closeBtn")[0];
+ 
+        // 监听打开弹窗事件
+        modalBtn.addEventListener("click",openModal);
+ 
+        // 监听关闭弹窗事件
+        closeBtn.addEventListener("click",closeModal);
+ 
+        // 监听window关闭弹窗事件
+        window.addEventListener("click",outsideClick);
+ 
+        // 弹窗事件
+        function openModal () {
+            modal.style.display = "block";
+        }
+ 
+        // 关闭弹框事件
+        function closeModal () {
+            modal.style.display = "none";
+        }
+        
+        // outsideClick
+        function outsideClick (e) {
+            if(e.target == modal){
+                modal.style.display = "none";
+            }
+        }
+    </script>
+        </div>
+        <!--box-2----------->
+        <div class="box">
+            <!--top-bar----------------->
+            <div class="top-bar"></div>
+            <!--nav------------->
+            <div class="nav">
+                <!--verify-icon--------->
+                <i class="verify fas fa-check-circle"></i>
+                <!--heart-btn--------------->
+                <input class="heart-btn" type="checkbox" id="heart-btn2">
+                <label class="heart" for="heart-btn2"></label>
+            </div>
+            <!--img and details---------------->
+            <div class="details">
+                <img src="../static/images/t-2.jpg" alt="">
+                <strong>Yueguo Wang</strong>
+                <p>shiyan688.mail.ustc.edu.cn</p>
+            </div>
+            <!--view-btns------------------>
+            <button id="modalBtn2" class="button">Introduction</button>
+            <div id="simpleModal2" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="closeBtn">&times;</span>
+                        <h2>Introduction</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p>就把我爱意都掩埋（前端）</p>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // 获取弹窗元素
+                var modal2 = document.getElementById("simpleModal2");
+         
+                // 获取按钮元素
+                var modalBtn2 = document.getElementById("modalBtn2");
+         
+                // 获取关闭弹窗按钮元素
+                var closeBtn2 = document.getElementsByClassName("closeBtn")[1];
+         
+                // 监听打开弹窗事件
+                modalBtn2.addEventListener("click",openModal2);
+         
+                // 监听关闭弹窗事件
+                closeBtn2.addEventListener("click",closeModal2);
+         
+                // 监听window关闭弹窗事件
+                window.addEventListener("click",outsideClick2);
+         
+                // 弹窗事件
+                function openModal2 () {
+                    modal2.style.display = "block";
+                }
+         
+                // 关闭弹框事件
+                function closeModal2 () {
+                    modal2.style.display = "none";
+                }
+                
+                // outsideClick
+                function outsideClick2 (e) {
+                    if(e.target == modal2){
+                        modal2.style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+        <!--box-3----------->
+        <div class="box">
+            <!--top-bar----------------->
+            <div class="top-bar"></div>
+            <!--nav------------->
+            <div class="nav">
+                <!--verify-icon--------->
+                <i class="verify fas fa-check-circle"></i>
+                <!--heart-btn--------------->
+                <input class="heart-btn" type="checkbox" id="heart-btn3">
+                <label class="heart" for="heart-btn3"></label>
+            </div>
+            <!--img and details---------------->
+            <div class="details">
+                <img src="../static/images/t-3.jpg" alt="">
+                <strong>Zhaochen Liu</strong>
+                <p>lzc030520@mail.ustc.edu.cn</p>
+            </div>
+            <!--view-btns------------------>
+            <button id="modalBtn3" class="button">Introduction</button>
+            <div id="simpleModal3" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="closeBtn">&times;</span>
+                        <h2>Introduction</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p>走世界上最长的捷径</p>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // 获取弹窗元素
+                var modal3 = document.getElementById("simpleModal3");
+         
+                // 获取按钮元素
+                var modalBtn3 = document.getElementById("modalBtn3");
+         
+                // 获取关闭弹窗按钮元素
+                var closeBtn3 = document.getElementsByClassName("closeBtn")[2];
+         
+                // 监听打开弹窗事件
+                modalBtn3.addEventListener("click",openModal3);
+         
+                // 监听关闭弹窗事件
+                closeBtn3.addEventListener("click",closeModal3);
+         
+                // 监听window关闭弹窗事件
+                window.addEventListener("click",outsideClick3);
+         
+                // 弹窗事件
+                function openModal3 () {
+                    modal3.style.display = "block";
+                }
+         
+                // 关闭弹框事件
+                function closeModal3 () {
+                    modal3.style.display = "none";
+                }
+                
+                // outsideClick
+                function outsideClick3 (e) {
+                    if(e.target == modal3){
+                        modal3.style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+        <!--box-4----------->
+        <div class="box">
+            <!--top-bar----------------->
+            <div class="top-bar"></div>
+            <!--nav------------->
+            <div class="nav">
+                <!--verify-icon--------->
+                <i class="verify fas fa-check-circle"></i>
+                <!--heart-btn--------------->
+                <input class="heart-btn" type="checkbox" id="heart-btn4">
+                <label class="heart" for="heart-btn4"></label>
+            </div>
+            <!--img and details---------------->
+            <div class="details">
+                <img src="../static/images/t-4.png" alt="">
+                <strong>Qihao Hu</strong>
+                <p>huqh56@mail.ustc.edu.cn</p>
+            </div>
+            <!--view-btns------------------>
+            <button id="modalBtn4" class="button">Introduction</button>
+            <div id="simpleModal4" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="closeBtn">&times;</span>
+                        <h2>Introduction</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p>代码和我总有一个人能跑(</p>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // 获取弹窗元素
+                var modal4 = document.getElementById("simpleModal4");
+         
+                // 获取按钮元素
+                var modalBtn4 = document.getElementById("modalBtn4");
+         
+                // 获取关闭弹窗按钮元素
+                var closeBtn4 = document.getElementsByClassName("closeBtn")[3];
+         
+                // 监听打开弹窗事件
+                modalBtn4.addEventListener("click",openModal4);
+         
+                // 监听关闭弹窗事件
+                closeBtn4.addEventListener("click",closeModal4);
+         
+                // 监听window关闭弹窗事件
+                window.addEventListener("click",outsideClick4);
+         
+                // 弹窗事件
+                function openModal4 () {
+                    modal4.style.display = "block";
+                }
+         
+                // 关闭弹框事件
+                function closeModal4 () {
+                    modal4.style.display = "none";
+                }
+                
+                // outsideClick
+                function outsideClick4 (e) {
+                    if(e.target == modal4){
+                        modal4.style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+        <!--box-5----------->
+        <div class="box">
+            <!--top-bar----------------->
+            <div class="top-bar"></div>
+            <!--nav------------->
+            <div class="nav">
+                <!--verify-icon--------->
+                <i class="verify fas fa-check-circle"></i>
+                <!--heart-btn--------------->
+                <input class="heart-btn" type="checkbox" id="heart-btn5">
+                <label class="heart" for="heart-btn5"></label>
+            </div>
+            <!--img and details---------------->
+            <div class="details">
+                <img src="../static/images/t-5.jpg" alt="">
+                <strong>Wanchao Huang</strong>
+                <p>hwc20040629@mail.ustc.edu.cn</p>
+            </div>
+            <!--view-btns------------------>
+            <button id="modalBtn5" class="button">Introduction</button>
+            <div id="simpleModal5" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="closeBtn">&times;</span>
+                        <h2>Introduction</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p>“这个人很懒”</p>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // 获取弹窗元素
+                var modal5 = document.getElementById("simpleModal5");
+         
+                // 获取按钮元素
+                var modalBtn5 = document.getElementById("modalBtn5");
+         
+                // 获取关闭弹窗按钮元素
+                var closeBtn5 = document.getElementsByClassName("closeBtn")[4];
+         
+                // 监听打开弹窗事件
+                modalBtn5.addEventListener("click",openModal5);
+         
+                // 监听关闭弹窗事件
+                closeBtn5.addEventListener("click",closeModal5);
+         
+                // 监听window关闭弹窗事件
+                window.addEventListener("click",outsideClick5);
+         
+                // 弹窗事件
+                function openModal5 () {
+                    modal5.style.display = "block";
+                }
+         
+                // 关闭弹框事件
+                function closeModal5 () {
+                    modal5.style.display = "none";
+                }
+                
+                // outsideClick
+                function outsideClick5 (e) {
+                    if(e.target == modal5){
+                        modal5.style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+        <!--box-6----------->
+        <div class="box">
+            <!--top-bar----------------->
+            <div class="top-bar"></div>
+            <!--nav------------->
+            <div class="nav">
+                <!--verify-icon--------->
+                <i class="verify fas fa-check-circle"></i>
+                <!--heart-btn--------------->
+                <input class="heart-btn" type="checkbox" id="heart-btn6">
+                <label class="heart" for="heart-btn6"></label>
+            </div>
+            <!--img and details---------------->
+            <div class="details">
+                <img src="../static/images/t-6.jpg" alt="">
+                <strong>Zihan zhu</strong>
+                <p>1144015697@qq.com</p>
+            </div>
+            <!--view-btns------------------>
+            <button id="modalBtn6" class="button">Introduction</button>
+            <div id="simpleModal6" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="closeBtn">&times;</span>
+                        <h2>Introduction</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p>我吹过你吹过的风,这算不算相拥</p>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // 获取弹窗元素
+                var modal6 = document.getElementById("simpleModal6");
+         
+                // 获取按钮元素
+                var modalBtn6 = document.getElementById("modalBtn6");
+         
+                // 获取关闭弹窗按钮元素
+                var closeBtn6 = document.getElementsByClassName("closeBtn")[5];
+         
+                // 监听打开弹窗事件
+                modalBtn6.addEventListener("click",openModal6);
+         
+                // 监听关闭弹窗事件
+                closeBtn6.addEventListener("click",closeModal6);
+         
+                // 监听window关闭弹窗事件
+                window.addEventListener("click",outsideClick6);
+         
+                // 弹窗事件
+                function openModal6 () {
+                    modal6.style.display = "block";
+                }
+         
+                // 关闭弹框事件
+                function closeModal6 () {
+                    modal6.style.display = "none";
+                }
+                
+                // outsideClick
+                function outsideClick6 (e) {
+                    if(e.target == modal6){
+                        modal6.style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+    </div>
+    </section>
+</body>
+</html>

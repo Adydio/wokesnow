@@ -1,0 +1,140 @@
+{% extends 'blogbase.html' %}
+
+{% block title %}
+    个人主页
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/blogAll.css">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="col-md-4">
+            <img src="{{ user.gravatar }}" height="200">
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-sm btn-outline-primary btn-icon">
+                <span class="btn-inner--icon"><i class="fas fa-user"></i></span>
+                <span class="btn-inner--text">{{ user.username }}</span>
+            </button>
+        </div>
+        <div class="col-md-4">
+            <form action="{{ url_for('user.upload') }}" enctype='multipart/form-data' method='POST'>
+                <span style="color: white">修改头像</span>
+                <input type="file" name="file" style="margin-top:10px;"/>
+                <input type="submit" value="上传" class="btn btn-sm btn-primary" style="margin-top:15px;"/>
+            </form>
+        </div>
+        <div class="btn-group btn-action-label mt-3" role="group" aria-label="Like">
+            <button type="button" class="btn btn-sm btn-secondary btn-action">
+                <i class="fas fa-arrow-right"></i>
+                <span>加入时间</span>
+            </button>
+            <a href="#" class="btn btn-sm btn-outline-danger btn-label">{{ user.join_time }}</a>
+        </div>
+        <div class="btn-group btn-action-label mt-3" role="group" aria-label="Like">
+            <button type="button" class="btn btn-sm btn-secondary btn-action">
+                <i class="fas fa-arrow-right"></i>
+                <span>邮箱</span>
+            </button>
+            <a href="#" class="btn btn-sm btn-outline-danger btn-label">{{ user.email }}</a>
+        </div>
+        <div class="mt-2"><a class="h3"><strong>个性签名：</strong></a></div>
+        <span class="card mt-2 h4" style="background-color: #00F7DE"> {{ user.idiom }}</span>
+        <div class="col-md-2 ">
+            <form action="{{ url_for('user.change_idiom') }}" method='POST'>
+                <input type='text' name=idiom class="form-control" placeholder="请输入新签名" style="margin-top:10px;"/>
+                <input type="submit" value="修改签名" class="btn btn-sm btn-primary" style="margin-top:15px;"/>
+            </form>
+        </div>
+        {#    <span style="color: white">标签1</span>#}
+        {#    <span style="color: white">标签2</span>#}
+        {#    <span style="color: white">标签3</span>#}
+        <div class="col-md-2 ">
+            <h3>我的关注：</h3>
+        </div>
+        <div class="col-md-4 ">
+            <h3>最近的提问：</h3>
+        </div>
+        <div class="card">
+            <div class="list-group">
+                <ul class="question-ul">
+                    {% for question in questionList %}
+                        <li class="list-group-item">
+                            <a class="h6 text-primary ml-0" href="/question/{{ question.id }}">{{ question.title }}</a>
+                            <p>
+                                发布人：{{ question.author.username }}
+                                &nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{ question.create_time }}
+                                <span class="operation">
+{#                            <a href="javascript:;" onclick="del('/blog/delete/{{ blog.id }}', this)">删除</a>#}
+                        </span>
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2 ">
+            <h3>我的收藏：</h3>
+        </div>
+        <div class="card">
+            <div class="list-group">
+                <ul class="question-ul">
+                    {% for blog in collected_blog %}
+                        <li class="list-group-item">
+                            <a class="h6 text-primary ml-0" href="/blog/{{ blog.id }}">{{ blog.title }}</a>
+                            <p>
+                                发布人：{{ blog.author.username }} &nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{ blog.create_time }}
+                                收到的赞：{{ blog.likes }} 收藏量：{{ blog.collects }}
+                                <span class="operation">
+                        </span>
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2 ">
+            <h3>我的博客：</h3>
+        </div>
+        <div class="card">
+            <div class="list-group">
+                <ul class="question-ul">
+                    {% for blog in blogList %}
+                        <li class="list-group-item">
+                            <a class="h6 text-primary ml-0" href="/blog/{{ blog.id }}">{{ blog.title }}</a>
+                            <p>
+                                发布人：{{ blog.author.username }} &nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{ blog.create_time }}
+                                收到的赞：{{ blog.likes }} 收藏量：{{ blog.collects }}
+                                <span class="operation">
+                            <a href="/blog/update/{{ blog.id }}">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="javascript:;" onclick="del('/blog/delete/{{ blog.id }}', this)">删除</a>
+                        </span>
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function del(url, that) {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.confirm('您确定要删除吗？', {
+                    btn: ['取消', '确定']
+                }, function (index) {
+                    layer.close(index);
+                }, function () {
+                    $.get(url, function (data) {
+                        if (data.state) {
+                            $(that).parent().parent().parent().remove();
+                            layer.msg(data.msg, {icon: 1});
+                        }
+                    })
+                });
+            });
+        }
+    </script>
+{% endblock %}

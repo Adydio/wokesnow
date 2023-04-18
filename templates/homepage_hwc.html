@@ -1,0 +1,32 @@
+{% extends 'base_hwc1.html' %}
+
+{% block title %}欢迎！{% endblock %}
+
+{% block page_content %}
+    <main class="main">
+        <section class="spotlight bg-cover bg-size--cover"
+                 style="background-image: url('../static/images/backgrounds/img-1.jpg')">
+            <span class="mask bg-primary alpha-7"></span>
+            <div class="spotlight-holder py-sm pt-lg-lg">
+                <div class="container d-flex align-items-center">
+                    <div class="row cols-xs-space cols-sm-space cols-md-space align-items-center justify-content-around">
+                        <div class="col-lg-5 text-center">
+                            <h2 class="heading h1 text-white strong-400">
+                                你是一个Python工程师！
+                            </h2>
+                            <p class="lead text-white mt-4">
+                                科大留言板，你值得拥有！
+                            </p>
+                            <a href="#" target="_blank" class="btn bg-white mt-4">了解更多</a>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="position-relative">
+                                <img src="../static/images/slider/iphone.png" class="img-center img-fluid rounded">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

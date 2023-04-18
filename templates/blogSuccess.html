@@ -1,0 +1,20 @@
+{% extends 'blogbase.html' %}
+
+{% block title %}
+    在线博客平台.博客
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/blogSuccess.css">
+{% endblock %}
+
+{% block content %}
+    <div class="home">
+        <h1>博文《{{ title }}》发布成功！</h1>
+        <img src="/static/images/timg.png">
+        <p>
+            <a href="/user/writeBlog">再写一篇</a>
+            <a href="/blog/{{ id }}">查看文章</a>
+        </p>
+    </div>
+{% endblock %}

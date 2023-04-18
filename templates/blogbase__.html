@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+          content="Probably the most complete UI kit out there. Multiple functionalities and controls added,  extended color palette and beautiful typography, designed as its own extended version of Bootstrap at  the highest level of quality.                             ">
+    <meta name="author" content="ustcflask">
+    <title>{% block title %}{{ title|default }}{% endblock title %}</title>
+    <!-- Fonts -->
+    <!-- Plugins -->
+    <link rel="stylesheet" href="../static/vendor/animate/animate.min.css" type="text/css">
+    <!-- Theme CSS -->
+    <link type="text/css" href="../static/css/theme.css" rel="stylesheet">
+    <!-- Demo CSS - No need to use these in your project -->
+    <link rel="stylesheet" href="../static/vendor/jquery-scrollbar/css/jquery-scrollbar.css">
+    <link type="text/css" href="../static/vendor/highlight/css/highlight.min.css" rel="stylesheet">
+    <link type="text/css" href="../static/css/demo.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/layui/layui.js"></script>
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+<main class="main">
+    <aside class="sidebar" id="nav_docs">
+        <div class="sidebar-brand">
+            <h1 class="font-weight-400">
+                <a href="#">
+                    <span class="font-weight-900">USTC</span> 博客园</a>
+            </h1>
+        </div>
+        <div class="scrollbar-inner">
+            <ul class="navigation pr-3">
+                <li class="navigation-title">分区</li>
+                <li class="navigation-item">
+                    <a class="navbar-brand" href="../"><strong>USTC</strong> 匿名讨论板</a>
+                </li>
+{#                <li class="navigation-item">#}
+{#                    <a href="file-structure.html" class="navigation-link">menu 2</a>#}
+{#                </li>#}
+{#                <li class="navigation-item">#}
+{#                    <a href="plugins.html" class="navigation-link">menu 3</a>#}
+{#                </li>#}
+{#                <li class="navigation-item">#}
+{#                    <a href="customization.html" class="navigation-link">menu 4</a>#}
+{#                </li>#}
+{#                <li class="navigation-item">#}
+{#                    <a href="update.html" class="navigation-link">menu 5</a>#}
+{#                </li>#}
+            </ul>
+        </div>
+    </aside>
+    <section class="content">
+        <div class="header">
+            <div class="navigation-trigger d-xl-none" data-action="aside-open" data-target=".sidebar">
+                <div class="navigation-trigger-inner">
+                    <i class="navigation-trigger-line"></i>
+                    <i class="navigation-trigger-line"></i>
+                    <i class="navigation-trigger-line"></i>
+                </div>
+            </div>
+            <div class="header-brand d-xl-none">
+                <h1><a href="index.html">USTC 博客园</a></h1>
+            </div>
+            <div class="header-nav ml-auto">
+                <ul class="nav align-items-center">
+                    <li class="nav-item ml-4">
+                        <a href='{{ url_for("qa.index") }}'
+                           class="btn btn-sm btn-primary">匿名讨论板</a>
+                    </li>
+                    <li class="nav-item ml-4">
+                        <a href='{{ url_for("blog.blog_index") }}'
+                           class="btn btn-sm btn-primary">科大博客园</a>
+                    </li>
+                    <li class="nav-item ml-4">
+                        <a href="{{ url_for('user.writeblog') }}"
+                           class="btn btn-sm btn-primary">写博客</a>
+                    </li>
+                    {% if g.user %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbar_main_dropdown_1"
+                               role="button" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">{{ user.username }}</a>
+                            <div class="dropdown-menu" aria-labelledby="navbar_1_dropdown_1">
+                                <a class="dropdown-item" href={{ url_for("user.myBlog") }}>个人中心</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href={{ url_for('user.logout') }}>退出登录</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item ">
+                            <a href='{{ url_for("user.login") }}'
+                               class="btn btn-sm bg-white d-none d-lg-inline-flex">登录</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href='{{ url_for("user.register") }}'
+                               class="btn btn-sm bg-white d-none d-lg-inline-flex">注册</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href={{ url_for('docs') }}>文档</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content-inner content-docs">
+            {% block content %}
+
+                {% for blog in blogs %}
+                    <li class="list-group-item">
+                        <div class="align-items-center">
+                            <a href="" class="avatar avatar-sm bg-twitter mr-3">
+                                <i class="fab fa-twitter"></i></a>
+                            <a class="h6 text-primary ml-0" href="/author/{{ blog.author.id }}">{{ blog.author.username }}</a>
+                        </div>
+                        <div class="list-group-content">
+                            <div class="list-group-heading">
+                                <a class="h5 text-primary ml-5"
+                                   href="{{ url_for('blog.blog_detail',blog_id=blog.id) }}">{{ blog.title }}</a>
+                                <a class="h6 text-primary ml-4">收到了 {{ blog.likes }} 个赞 &nbsp;&nbsp;{{ blog.comments }}条评论回复</a>
+                                <small>发布于 {{ blog.create_time }}</small>
+                            </div>
+                        </div>
+{#                        <div class="col">#}
+                            {#                                                </div>#}
+                            {#                                                <a>{{ blog.content }}</a>#}
+                            {#                                                <ul class="nav justify-content-end">#}
+                            {#                                                    <li class="nav-item">#}
+                            {#                                                        <div class="btn-group btn-action-label" role="group"#}
+                            {#                                                             aria-label="Like">#}
+                            {#                                                            <a href="{{ url_for('blog.blog_detail',blog_id=blog.id) }}"#}
+                            {#                                                               class="btn btn-sm btn-outline-primary btn-label">{{ blog.answers|length }}</a>#}
+                            {#                                                            <button href="{{ url_for('blog.blog_detail',blog_id=blog.id) }}"#}
+                            {#                                                                    type="button"#}
+                            {#                                                                    class="btn btn-sm btn-primary btn-action-label">#}
+                            {#                                                                <i class="fas fa-code-branch"></i>#}
+                            {#                                                                <span>跟帖</span>#}
+                            {#                                                            </button>#}
+                            {#                                                        </div>#}
+                            {#                                                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <button type="button"#}
+{#                                class="btn btn-sm btn-secondary btn-animated btn-animated-y">#}
+{#                            <span class="btn-inner--hidden">收藏</span>#}
+{#                            <span class="btn-inner--visible"><i class="fa fa-star"></i></span>#}
+{#                        </button>#}
+{#                    </li>#}
+{#                    </ul>#}
+{#                    </li>#}
+{#                    </div>#}
+                {% endfor %}
+
+
+
+
+
+
+            {% endblock %}
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                    </div>
+
+
+                    {#                    <div class="col-lg-3 d-none d-lg-inline-block">#}
+                    {#                        <div class="sidebar-sticky" data-stick-in-parent="true">#}
+                    {#                            <ul class="section-nav">#}
+                    {#                                <li class="toc-entry toc-h3"><a href="#">Example</a></li>#}
+                    {#                                <li class="toc-entry toc-h3"><a href="#">Animated buttons</a></li>#}
+                    {#                            </ul>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                </div>
+            </div>
+        </div>
+
+        <footer class="px-3 footer bg-white">
+            <div class="container ">
+                <div class="row align-items-center py-3 border-top">
+                    <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                        &copy; 2022 <a href="https://webpixels.io/" target="_blank">ustcflask</a>. All rights reserved.
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+    </section>
+</main>
+<!-- Core -->
+<script src="../static/vendor/jquery/jquery.min.js"></script>
+<script src="../static/vendor/popper/popper.min.js"></script>
+<script src="../static/js/bootstrap/bootstrap.min.js"></script>
+<!-- FontAwesome 5 -->
+<script src="../static/vendor/fontawesome/js/fontawesome-all.min.js" defer></script>
+<!-- Scripts used only for this demo only - Remove these in your project -->
+<script src="../static/vendor/jquery-scrollbar/js/jquery-scrollbar.min.js"></script>
+<script src="../static/vendor/jquery-scrollLock/jquery-scrollLock.min.js"></script>
+<script src="../static/vendor/sticky-kit/sticky-kit.min.js"></script>
+<script src="../static/vendor/highlight/js/highlight.min.js"></script>
+<script src="../static/vendor/clipboard-js/clipboard.min.js"></script>
+<script src="../static/vendor/holderjs/holder.min.js"></script>
+<script src="../static/js/demo.js"></script>
+<!-- Theme JS -->
+<script src="../static/js/theme.js"></script>
+{% block scripts %}
+
+{% endblock %}
+</body>
+</html>

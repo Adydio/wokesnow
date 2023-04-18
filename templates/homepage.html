@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}欢迎！{% endblock %}
+{% block col %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
+{% endblock %}
+
+{% block col2 %}
+    <div class="row" style="margin-top: 20px;">
+        <ul class="question-ul">
+            {% for question in questions %}
+                <li>
+                    <div class="side-question">
+                        <img class="side-question-avatar" src="{{ url_for('static',filename='images/avatar.png') }}"
+                             alt="">
+                    </div>
+                    <div class="question-main">
+                        <div class="question-title"><a
+                                href="{{ url_for('qa.question_detail',question_id=question.id) }}">{{ question.title }}</a>
+                        </div>
+                        <div class="question-content">{{ question.content }}</div>
+                        <div class="question-detail" align="bottom">
+                            <span class="question-author">发布于 {{ question.author.nickname }}</span>
+                            <span class="question-time"> {{ question.create_time }}</span>
+                        </div>
+                        <div class="btn-group btn-action-label" role="group" aria-label="Like">
+                            <a href="{{ url_for('qa.question_detail',question_id=question.id) }}"
+                               class="btn btn-sm btn-outline-primary btn-label">{{ question.answers|length }}</a>
+                            <button href="{{ url_for('qa.question_detail',question_id=question.id) }}" type="button"
+                                    class="btn btn-sm btn-primary btn-action-label">
+                                <i class="fas fa-code-branch"></i>
+                                <span>跟帖</span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="col"></div>
+    </div>
+{% endblock %}
+{% block col1 %}
+    <div class="container d-flex align-items-center no-padding">
+        <div class="col">
+            <div class="row justify-content-center">
+                <div class="card sticky-top">
+                    <div class="card-header">
+                        <p>卡片头</p>
+                    </div>
+                    <div class="card-body">
+                        <p>忘记要装什么了</p>
+                        <p>忘记要装什么了</p>
+                        <p>忘记要装什么了</p>
+                        <p>忘记要装什么了</p>
+                        <p>忘记要装什么了</p>
+                        <p>忘记要装什么了</p>
+                    </div>
+                    <div class="card-footer">
+                        <p>卡片尾</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block col3 %}
+    <div class="container d-flex align-items-center no-padding">
+        <div class="col">
+            <div class="row justify-content-center">
+                <div class="card sticky-top">
+                    <div class="card-header">
+                        <p>卡片头</p>
+                    </div>
+                    <div class="card-body">
+                        <p>忘记要装什么了</p>
+                        <p>忘记要装什么了</p>
+                        <p>忘记要装什么了</p>
+                        <p>忘记要装什么了</p>
+                        <p>忘记要装什么了</p>
+                        <p>忘记要装什么了</p>
+                    </div>
+                    <div class="card-footer">
+                        <p>卡片尾</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block show %}
+    <section class="slice slice-lg" data-delimiter="1">
+        <div class="container">
+            <h2 class="heading h2 text-secondary">今日推荐</h2>
+            <div class="fluid-paragraph text-center mt-4">
+                <h3 class="heading h3 text-secondary">一起来看看精选问题吧！</h3>
+            </div>
+            {#            <div class="row cols-xs-space cols-sm-space cols-md-space">#}
+        </div>
+    </section>
+{% endblock show %}
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript">
+        $(function () {
+            $('.collect').click(function () {
+                // this在回调函数中没有意义，需要临时保存
+                _this = this
+                $.get($(this).attr('url'), function () {
+                    if ($(_this).text() == '收藏') {
+                        $(_this).text('取消收藏')
+                    } else {
+                        $(_this).text('收藏')
+                    }
+                })
+            })
+        })
+    </script>
+{% endblock %}
